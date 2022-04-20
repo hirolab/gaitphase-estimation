@@ -27,9 +27,9 @@ rsa = [8.377455150248608e-04;-0.206418742789493;6.496951887002833e-05] ;
 Fs = 400;
 
 % outdoor ===============================
-load('\\nas01.itap.purdue.edu\puhome\Desktop\Gait_phase_paper\data\subjectB\subjectB_outdoor walk 46min.mat')
+load('C:\Users\solimana\Documents\gaitphase-estimation\data\subjectB\subjectB_outdoor walk 46min.mat')
 % pattern =================================================
-load('\\nas01.itap.purdue.edu\puhome\Desktop\Gait_phase_paper\data\subjectB\subjectB_gait_pattern_model.mat')
+load('C:\Users\solimana\Documents\gaitphase-estimation\data\subjectB\subjectB_gait_pattern_model.mat')
 
 xcnt = 40;
 coeffcnnt = 100;

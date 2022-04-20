@@ -26,10 +26,10 @@ Fs = 400;
 
 % outdoor ===============================
 
-trial = load('\\nas01.itap.purdue.edu\puhome\Desktop\Gait_phase_paper\data\subjectC\subjectC_outdoor_walk_40min.mat');
+trial = load('C:\Users\solimana\Documents\gaitphase-estimation\data\subjectC\subjectC_outdoor_walk_40min.mat');
 t = trial.trial;
 % pattern =================================================
-load('\\nas01.itap.purdue.edu\puhome\Desktop\Gait_phase_paper\data\subjectC\gait_pattern_model.mat')
+load('C:\Users\solimana\Documents\gaitphase-estimation\data\subjectC\gait_pattern_model.mat')
 
 
 

@@ -28,7 +28,7 @@ Fs = 400;
 
 
 
-load('\\nas01.itap.purdue.edu\puhome\Desktop\Gait_phase_paper\data\subjectA\subjectA_indoor_walk.mat')
+load('C:\Users\solimana\Documents\gaitphase-estimation\data\subjectA\subjectA_indoor_walk.mat')
 
 
 t = trial(2);
