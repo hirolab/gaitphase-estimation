@@ -1,5 +1,7 @@
 # gaitphase-estimation
 
+## 
+If you use our work for research, please cite out paper (Link). 
 
 ## To access data : 
     1. Create a data folder 
