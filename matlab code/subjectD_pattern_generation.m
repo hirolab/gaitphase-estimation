@@ -3,35 +3,35 @@ clc
 close all
 
 
-r1 = [0.091305262300364;-0.006017738044598;0.005762894304378] ;
-Tw1 = [-0.035766217056836,0.224271496587231,-0.986855483131145;-0.799666833943993,0.575575075329483,0.154996430729911;0.598636436256773,0.788519931772248,0.164842131192030];
-Ta1 = [-0.015533192510838,0.227452625653973,-0.938506470036921;-0.803033431853574,0.576353036226075,0.151062173829026;0.595436706713049,0.791674638072338,0.170923221853200];
-Tm1 = [-0.038025666259945,-0.010640685987398,-0.999220108137944;-0.834348161843248,0.550629611294890,0.025887757609184;0.549924716242397,0.834681859732771,-0.029816094626279];
-abias1 = [0.202534697017711,-0.335720616841910,0.380142380236680];
-wbias1 =  [-0.006191581347783,-0.011518655999633,0.003261243232253];
-mbias1= [-34.537674676025050,-86.271648812013200,-73.025554005125580];
+r1 = [0.095026572520900;-3.945808440737073e-04;-0.012215536575702];
+Tw1 = [0.071678660788978,0.077991073961893,-1.011845839167415;-0.841257915321978,0.545824935665565,-0.022535977381557;0.534292226467099,0.834695938230340,0.099677944622817];
+Ta1 = [0.083024044472027,0.079245218750652,-0.976260362755186;-0.862815564353740,0.551876139545587,-0.018974253862459;0.562318899193943,0.850249885305265,0.099597937159941];
+Tm1 = [0.083024044472027,0.079245218750652,-0.976260362755186;-0.862815564353740,0.551876139545587,-0.018974253862459;0.562318899193943,0.850249885305265,0.099597937159941];
+abias1 = [0.239327370166102,-0.487187326511065,0.373706818480228];
+wbias1 = [-0.004364524050998,-0.013253968537931,0.006623539902981];
+mbias1=[0,0,0];
 
 
-r2 = [-0.012042146113055;-0.020933453618862;-0.040687037093892] ;
-Tw2 = [0.026609109556093,1.007641001818010,-0.101724300408771;0.995034910208084,-0.016939743254783,0.033188356892398;0.028616620945591,-0.096837535901401,-1.007774892110355];
-Ta2 =  [0.028666848796954,0.998610258511563,-0.105271165939392;0.963169622218637,-0.023470355157086,0.027453469222973;0.039544193902019,-0.108601850486066,-1.024785151729591];
-Tm2 = [-0.422815826573027,-0.906116877366499,-0.013378391194486;0.794900729246127,-0.363749878168159,-0.485611837558173;0.435154693693339,-0.215958863407443,0.874072172004361] ;
-abias2 = [0.261940921219439,-0.323127819335090,0.413641352368841]; 
-wbias2 =  [-0.009163141961407,-6.665360925654811e-04,-0.002722902654606] ;
-mbias2 =  [-47.437304022632200,-12.820750403930155,-71.031656346552720];
+r2 = [0.006947997609772;0.046648126316578;-0.043206192549542];
+Tw2 =[-0.047910149029392,1.017401862435155,0.027186834466638;0.749963900591967,0.039227227320776,0.679285821406879;0.680586284438009,0.042417450889460,-0.750127207749930];
+Ta2 = [-0.053597568015329,0.995989037638687,0.003731795514654;0.695952627563320,0.020606177312225,0.656792529342617;0.707965990888661,0.042333129485294,-0.769656806401236];
+Tm2 = [-0.422815826573027,-0.906116877366499,-0.013378391194486;0.794900729246127,-0.363749878168159,-0.485611837558173;0.435154693693339,-0.215958863407443,0.874072172004361];
+abias2 = [0.332285039071802,-0.217533095148346,0.493587513826306];
+wbias2 = [-0.006498627843007,-0.001556319920726,-9.239718203433528e-04];
+mbias2 = [0,0,0];
 
-rfa =  [-0.004004689514154;-0.006964576615733;0.009818576708270];
-rsa =  [3.538934950412793e-04;-0.212277798170128;0.001200695872606];
+rfa = [0.007285503939759;-8.741828959805633e-04;-0.003253437310353];
+rsa = [0.003086842952211;-0.199674937857264;0.001418152320710];
 
 %% Load walking data
 Fs = 400;
 
 
 
-load('C:\Users\solimana\Documents\gaitphase-estimation\data\subjectA\subjectA_indoor_walk.mat')
+load('/Users/ahmysoli/Documents/GitHub/gaitphase-estimation/matlab code/subjectD_indoor_walk.mat')
 
 
-t = trial(2);
+t = trial;
 
 t_tmp_i = (5<t.itime_tsync)&(t.itime_tsync<490);
 
@@ -68,17 +68,17 @@ h3 = subplot(223); plot(time, ws), grid on, title('\omega_s')
 h4 = subplot(224); plot(time, as), grid on, title('a_s')
 linkaxes([h1, h2, h3, h4], 'x')
 
-if isfield(t, 'mtime')  % has ground-truth
-
-    missing_opt = {'spline', 'EndValues', 'nearest'};
-    fquat = quatnormalize(fillmissing(interp1(t.mtime, QTMParser.fill_missing_quat(t.fquat, missing_opt{:}), time), 'nearest'));
-    squat = quatnormalize(fillmissing(interp1(t.mtime, QTMParser.fill_missing_quat(t.squat, missing_opt{:}), time), 'nearest'));
-    s1 = fillmissing(interp1(t.mtime, fillmissing(t.ftrans + quatrotate(quatinv(t.fquat), r1'), missing_opt{:}), time), 'nearest');
-    s2 = fillmissing(interp1(t.mtime, fillmissing(t.strans + quatrotate(quatinv(t.squat), r2'), missing_opt{:}), time), 'nearest');
-    v1 = deriv_sgolay(s1, Fs, [3, 9]);
-    v2 = deriv_sgolay(s2, Fs, [3, 9]);
-    
-end
+% if isfield(t, 'mtime')  % has ground-truth
+% 
+%     missing_opt = {'spline', 'EndValues', 'nearest'};
+%     fquat = quatnormalize(fillmissing(interp1(t.mtime, QTMParser.fill_missing_quat(t.fquat, missing_opt{:}), time), 'nearest'));
+%     squat = quatnormalize(fillmissing(interp1(t.mtime, QTMParser.fill_missing_quat(t.squat, missing_opt{:}), time), 'nearest'));
+%     s1 = fillmissing(interp1(t.mtime, fillmissing(t.ftrans + quatrotate(quatinv(t.fquat), r1'), missing_opt{:}), time), 'nearest');
+%     s2 = fillmissing(interp1(t.mtime, fillmissing(t.strans + quatrotate(quatinv(t.squat), r2'), missing_opt{:}), time), 'nearest');
+%     v1 = deriv_sgolay(s1, Fs, [3, 9]);
+%     v2 = deriv_sgolay(s2, Fs, [3, 9]);
+%     
+% end
 
 %%
 x = zscore([af, wf]);
@@ -104,14 +104,15 @@ h1 = subplot(223); plot(time, af); title ('Total a^F_t during indoor gait')
 ylabel('a [^{m}/_{s^2}]')
 xlabel({'Time [s]';'(b)'});
 grid on
-xlim([0 500])
+xlim([0 300])
+ylim([-50 50])
 
 h2 = subplot(221); plot(time, pforce),hold on
 plot(time(hs_event),pforce(hs_event), 'ks', ...
     time(to_event), pforce(to_event), 'ko','LineWidth',0.8); title('Total F_N during indoor gait')
 xlabel({'Time [s]';'(a)'});
-xlim([0 500])
-
+xlim([0 300])
+ylim([-100 900])
 linkaxes([h1, h2], 'x')
 
 ylabel('Force [N]')
@@ -123,12 +124,14 @@ xlabel({'Time [s]';'(d)'});
 grid on
 
 plot(time(hs_event), af(hs_event,1), 'ks', ...
-    time(to_event), af(to_event,1), 'ko','LineWidth',1.5);title ('Segmented a^F_t during indoor gait');xlim([224 232]);
+    time(to_event), af(to_event,1), 'ko','LineWidth',1.5);title ('Segmented a^F_t during indoor gait');xlim([135 141]);
+ylim([-30 40])
+
 
 h4 = subplot(222); plot(time, pforce),hold on
 plot(time(hs_event), pforce(hs_event), 'ks', ...
-    time(to_event), pforce(to_event), 'ko','LineWidth',1.5); title('Segmented F_N during indoor gait')
-xlim([224 232]); 
+    time(to_event), pforce(to_event), 'ko','LineWidth',1.5); title('Segmented F_N during indoor gait');ylim([-100 750]);
+xlim([135 141]);
 xlabel({'Time [s]';'(c)'});
 
 legend('','','','HS','TO','location','best','Fontsize',9)
